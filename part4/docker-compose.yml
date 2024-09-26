@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  book_catalog:
+    build: 
+     context: ./book_catalog
+     dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    environment:
+      - DATABASE_URL=postgresql://terraform_user:x9IsNKlX4N0PJ3IHST59SQTwmoLfvMjM@dpg-crqnfgtumphs73br3ok0-a.oregon-postgres.render.com/terraform
+    networks:
+      - app-network
+
+  inventory_management:
+    build: 
+     context: ./inventory_management
+     dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    environment:
+      - DATABASE_URL=postgresql://terraform_user:x9IsNKlX4N0PJ3IHST59SQTwmoLfvMjM@dpg-crqnfgtumphs73br3ok0-a.oregon-postgres.render.com/terraform
+    networks:
+      - app-network
+
+networks:
+  app-network:  
+   driver: bridge
